@@ -1,0 +1,79 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+<div id="memberAdBody" class="editAd">
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var cats = '{exp:channel:entries channel="{segment_3}" entry_id="{segment_4}"}{categories  show_group="1" backspace="1"}{category_id}:{/categories}{/exp:channel:entries}',
+                cat1 = cats.split(':')[0],
+                cat2 = cats.split(':')[1],
+                cat3 = cats.split(':')[2];
+
+            if(cat1 !== 'undefined') {
+                $('.categoriesLoca1 option[value='+cat1+']').attr('selected','selected');
+            }
+            if(cat2 !== 'undefined') {
+                $('.categoriesLoca2 option[value='+cat2+']').attr('selected','selected');
+            }
+            if(cat3 !== 'undefined') {
+                $('.categoriesLoca3 option[value='+cat3+']').attr('selected','selected');
+            }           
+            
+        });
+
+    </script>
+{exp:channel:form channel="{segment_3}" return="member/my-ads" entry_id="{segment_4}"}
+	<div class="editAdLeft">
+		<h4 class="noTop">Image: <span class="normalFont">&#40;size: 180x130&#41;</span></h4>
+		{field:image}
+		<h4>Date:</h4>
+    	<input type="text" name="entry_date" id="entry_date" value="{entry_date}" maxlength="23" size="25"/>
+        <h4>Nearest stations:</h4>
+   		<p>Station 1</p>
+		<select name="category[]" class="categoriesLoca1">
+            {exp:channel:categories channel="{segment_3}" style="linear" category_group="1"}
+            <option value="{category_id}">{category_name}</option>
+        	{/exp:channel:categories}
+        </select>
+        <p>Station 3</p>
+        <select name="category[]" class="categoriesLoca2">
+            {exp:channel:categories channel="{segment_3}" style="linear" category_group="1"}
+            <option value="{category_id}">{category_name}</option>
+        	{/exp:channel:categories}
+        </select>
+        <p>Station 3</p>
+        <select name="category[]" class="categoriesLoca3">
+            {exp:channel:categories channel="{segment_3}" style="linear" category_group="1"}
+            <option value="{category_id}">{category_name}</option>
+        	{/exp:channel:categories}
+        </select>
+    </div>
+    <div class="editAdRight">
+        <div class="adRightTop">
+            <div class="titlesInputs">
+            	<p>Title: <span class="normalFont">&#40;max 128 characters&#41;</span></p>
+        	    <input name="title" type="text" value="{title}"/>
+        	    <p>Subtitle:1 <span class="normalFont">&#40;max 128 characters&#41;</span></p>
+        	    <input name="subtitle" type="text" value="{subtitle}"/>
+            </div>
+            <div class="closeM noMargin">
+                <p class="closeModal button">close</p>
+            </div>
+        </div>
+	    <div class="editAdEditor">	
+            <p>Content of your ad:</p>    
+		    {field:description_of_your_place}
+		</div>
+	</div> 
+    <div class="editAdEditor getLocationField"> 
+        <div class="submitContainer left">
+            <input type="submit" value="Post ad"/>
+        </div>
+        <div class="editAdRight">
+            <p>Copy and paste your location from google maps:</p>     
+            {field:get_location}        
+        </div>
+    </div>        
+	
+{/exp:channel:form}
+</div>

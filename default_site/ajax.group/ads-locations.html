@@ -1,0 +1,74 @@
+<!-- location filter main page : categories -->
+{exp:channel:entries 
+channel="bars|clubs|restaurants" 
+status="open" 
+limit="10" 
+group_id="5|6|1" 
+sort="desc" 
+orderby="date" 
+category="{segment_4}"
+paginate="bottom"}
+<div class="block" data-paginate="ads-locations/category/{segment_4}">
+    <div class="blockLeft {entry_id}">
+        <div class="blockLeftDF">
+            <div class="date">
+                <p>{entry_date format="%d"}</p>
+                <p>{entry_date format="%M"}</p>
+            </div>
+            <div class="makeFavorite">
+                <span id="{url_title}" class="favoriteAd" data-url="{channel_short_name}/{url_title}" data-date="{entry_date format='%d, %M'}" data-img="{image}"  data-title="{title}" data-id="{entry_id}"></span>
+            </div>	
+            <div class="fbLike">
+            </div>							
+        </div>
+        <div class="ad-default-img">
+        {if image}                
+            <img src="{image}" width="180" height="130" />               
+        {/if}
+        </div>	
+        <br />				
+        <div class="blockLeftLower">
+            {if group_id=="6" || group_id=="1"}
+            <div class="adsItemLeftInfoBlock">
+                <h4>My Page:</h4>
+                <a href="{site_url}/{exp:member:custom_profile_data member_id="{author_id}"}{web_app_url}{/exp:member:custom_profile_data}" class="getLocationWeb">{title}</a>
+            </div>
+            {/if}
+            <div class="adsItemLeftInfoBlock">
+                <h4>My Full Ad:</h4>
+                <a href="{site_url}/{channel_short_name}/{url_title}" class="blockLeftLowerTitle">{title}</a>
+            </div>
+            <div class="adsItemLeftInfoBlock">
+                <h4>Location:</h4>
+                <a href="{get_location}" target="_blank" class="getLocation">map location</a>
+            </div>
+            <div class="adsItemLeftInfoBlock">
+                <h4>Nearest stations:</h4>
+                <ul>
+                    {categories show_group="1"}<li>{category_name}</li>{/categories}										
+                </ul>			
+            </div>				
+        </div>
+    </div>
+
+    <div class="blockRight">
+        <div class="mainIten">
+            <a href="{site_url}/{channel_short_name}/{url_title}" class="mainItemTitle">{title}</a>
+            <h4>{subtitle}</h4>
+            <div class="addInfo">								    				    	
+                {exp:word_limit total="100"}{description_of_your_place}{/exp:word_limit}	
+                <a href='{site_url}/{channel_short_name}/{url_title}'> &nbsp;read more</a>									    
+            </div>
+            <div class="socialBookmarks">
+                <span class="viewFullAd" data-entry-title="{title}" data-entry="{entry_id}">more</span>
+            </div>
+        </div>			
+    </div>
+
+</div>
+
+{paginate}
+{if next_page}<a class="next paginationHide" href="{auto_path}"> </a>{/if}
+{/paginate}
+{/exp:channel:entries}
+

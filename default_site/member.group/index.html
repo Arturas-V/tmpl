@@ -1,0 +1,28 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+{embed="tmpl/head"}				
+
+	<div id="main" class="memberProfile">	
+	{exp:member:custom_profile_data member_id={member_id}""}
+
+		<h1>Welcome {name_of_member_place}</h1>	
+
+		<p><strong>Accout type</strong></p>
+		<p>{if group_id=="5"}Standart account{if:elseif group_id=="6"}Premium account{if:elseif group_id=="1"}Admin{/if}</p>
+		<br />
+		<p><strong>Last visit</strong></p>
+		<p>{last_visit format="%D, %d %F, %Y - %g:%i:%s"}</p>
+		<br />
+		<p><strong>Join date</strong></p>
+		<p>{join_date format="%D, %d %F, %Y"}</p>	
+		<br />
+	
+            
+		
+
+	{/exp:member:custom_profile_data}
+	</div>
+
+	{embed="tmpl/member-sub-menu"}
+
+{embed="tmpl/footer"}

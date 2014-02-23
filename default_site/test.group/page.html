@@ -1,0 +1,60 @@
+{embed="tmpl/head"}	
+<div id="main">		
+    <div id="loader">
+        <img src="/images/style/275-black.gif" alt="Loading ..." width="80" height="17"/>
+    </div>
+    {if logged_out}{redirect="404"}{/if}
+    <!-- member my web -->	
+    <div class="memberMyWeb">			
+        {exp:channel:entries 
+        channel="premium_members_pages" 
+        author_id="CURRENT_USER" 
+        url_title="{segment_3}" 
+        limit="1" 
+        status="open|closed"}
+        <ul id="myWebMenu">						
+            <li><span class="tabMemberWeb activeOne" data-tab="aboutUsMemberTab">About us</span></li>
+            <li><span class="tabMemberWeb" data-tab="whatsOnMemberTab">Whats on</span></li>
+            <li><span class="tabMemberWeb galleryTab" data-tab="galleryMemberTab">Gallery</span></li>
+            <li><span class="tabMemberWeb" data-tab="promotionsMemberTab">Promotions</span></li>
+            <li><span class="tabMemberWeb" data-tab="findUsMemberTab">Find us</span></li>				
+        </ul>
+        <div id="aboutUsMemberTab" class="memberMyTabContent">
+            <h1>About us</h1>
+            {about_us}
+        </div>
+        <div id="whatsOnMemberTab" class="memberMyTabContent noActiveMyWebtab">
+            <h1>Whats on</h1>
+            {whats_on}
+        </div>
+        <div id="galleryMemberTab" class="memberMyTabContent noActiveMyWebtab">
+            <h1>Gallery</h1>
+
+            <div class="fotorama" data-nav="thumbs" data-thumb-width="120" data-thumb-height="70" data-width="680"
+                 data-height="350" data-fit="cover" data-loop="true" data-autoplay="true">
+                {gallery}
+                <img src="{image:url}">
+                {/gallery}							
+            </div>		
+        </div>
+        <div id="promotionsMemberTab" class="memberMyTabContent noActiveMyWebtab">
+            <h1>Promotions</h1>
+            {promotions}
+        </div>
+
+        <div id="findUsMemberTab" class="memberMyTabContent noActiveMyWebtab">
+            <h1>Find us</h1>
+            <div class="findUsContent">
+                {find_us}
+                <div class="mapMyWeb">
+                    {location_map}
+                </div>
+            </div>
+        </div>
+        {/exp:channel:entries}
+    </div>
+</div>
+
+{embed="tmpl/sub-menu"}
+
+{embed="tmpl/footer"}

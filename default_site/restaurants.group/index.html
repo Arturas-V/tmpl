@@ -1,0 +1,116 @@
+{embed="tmpl/head"}	
+
+{if !segment_2}
+
+<div id="main">		
+
+    <div id="loader">
+        <img src="/images/style/275-black.gif" alt="Loading ..." width="80" height="17"/>
+    </div>	
+
+    <h1>Restaurants in London<span id="addLocTitle"></span></h1>		
+
+    <div id="mainList">	<!--  listing starts here -->	
+
+        {exp:channel:entries 
+        channel="{segment_1}" 
+        status="open" 
+        limit="10" 
+        group_id="5|6|1"
+        sort="desc" 
+        orderby="date" 
+        paginate="bottom"}
+        <div class="block" data-paginate="ajax-paginate-type/{segment_1}">
+            {if no_results}<h4>No results found, updates coming soon!</h4>{/if}
+            <div class="blockLeft {entry_id}">
+                <div class="blockLeftDF">
+                    <div class="date">
+                        <p>{entry_date format="%d"}</p>
+                        <p>{entry_date format="%M"}</p>
+                    </div>
+                    <div class="makeFavorite">
+                        <span id="{url_title}" class="favoriteAd" data-url="{channel_short_name}/{url_title}" data-date="{entry_date format='%d, %M'}" data-img="{image}"  data-title="{title}" data-id="{entry_id}"></span>
+                    </div>																
+                </div>
+                <div class="ad-default-img">
+                {if image}                
+                    <img src="{image}" width="180" height="130" />               
+                {/if}
+                </div>	
+                <br />				
+                <div class="blockLeftLower">
+                    {if group_id=="6" || group_id=="1"}
+                    <div class="adsItemLeftInfoBlock">
+                        <h4>My Page:</h4>
+                        <a href="{site_url}/{exp:member:custom_profile_data member_id="{author_id}"}{web_app_url}{/exp:member:custom_profile_data}">{title}</a>
+                    </div>
+                    {/if}
+                    <div class="adsItemLeftInfoBlock">
+                        <h4>My Full Ad:</h4>
+                        <a href="{site_url}/{channel_short_name}/{url_title}">{title}</a>
+                    </div>
+                    <div class="adsItemLeftInfoBlock">
+                        <h4>Location:</h4>
+                        <a href="{get_location}" target="_blank">map location here</a>
+                    </div>
+                    <div class="adsItemLeftInfoBlock">
+                        <h4>Nearest stations:</h4>	
+                        <ul class="">
+                            {categories show_group="1" limit="3"}<li>{category_name}</li>{/categories}										
+                        </ul>					
+                    </div>						
+                </div>
+            </div>
+
+            <div class="blockRight">
+                <div class="mainIten">
+                    <a href="{site_url}/{channel_short_name}/{url_title}" class="mainItemTitle">{title}</a>
+                    <h4>{subtitle}</h4>
+                    <div class="addInfo">								    				    	
+                        {exp:word_limit total="100"}{description_of_your_place}{/exp:word_limit}	
+                        <a href='{site_url}/{channel_short_name}/{url_title}'> &nbsp;read more</a>							    
+                    </div>
+                    <div class="socialBookmarks">
+                        <span class="viewFullAd" data-entry-title="{title}" data-entry="{entry_id}">more</span>
+                    </div>
+                </div>			
+            </div>
+
+        </div>
+        {paginate}
+        {if next_page}<a class="next paginationHide" href="{auto_path}"> </a>{/if}
+        {/paginate}
+        {/exp:channel:entries}	
+
+    </div>		
+
+</div>
+
+{if:elseif segment_2}
+
+<div class="adsItem adsItemPage">		
+
+    {exp:channel:entries channel="{segment_1}" group_id="5|6|1" url_title="{segment_2}" status="open"}
+    {if no_results}<h1>Sorry, this ad has been deleted!</h1>{/if}
+    <h1>{title}</h1>				
+
+    <div class="adsItemRight">
+        <div class="ad-default-img">
+        {if image}                
+            <img src="{image}" width="180" height="130" />               
+        {/if}
+        </div>
+        <h4>{subtitle}</h4>
+        <div class="adsItemRightContent">						
+            {description_of_your_place}
+        </div>
+    </div>
+    {/exp:channel:entries}		
+
+</div>
+
+{/if}
+
+{embed="tmpl/sub-menu"}
+
+{embed="tmpl/footer"}

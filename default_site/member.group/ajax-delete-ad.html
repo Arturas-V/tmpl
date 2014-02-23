@@ -1,0 +1,10 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+{exp:delete:delete_entry
+    channel="{segment_3}"
+	entry_id="{segment_4}"
+	error_no_permissions="You're not allowed to delete this ad!"
+	error_invalid_content="Ad has been deleted successfully"
+	message_success="Ad has been deleted successfully"
+}
+

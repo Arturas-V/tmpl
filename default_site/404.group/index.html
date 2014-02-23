@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>404 - page not found</title>
+        <link rel='stylesheet' type='text/css' href='{site_url}/style/main.css' media='screen' />
+        
+        <!-- Google Analytics -->
+        <script>            
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-13015867-13']);
+            _gaq.push(['_trackPageview', '404 - '+location.href]);
+            _gaq.push(['_trackEvent', 'Error page 404', location.href]);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <!-- End Google Analytics -->
+        
+    </head>
+    <body> 
+        <div id="page404">
+            <h1>It is dark in here, is it not ?</h1>
+            <h3>Sorry the page you were looking for could not be found</h3>
+            <h3>Visit our <a href="{site_url}">homepage</a></h3>
+            <h3>or go <a href="javascript: history.go(-1)">back</a></h3>
+        </div>
+    </body>
+</html>

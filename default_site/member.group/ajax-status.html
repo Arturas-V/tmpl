@@ -1,0 +1,23 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+{if segment_5=="true"}
+
+<div id="memberAdBody" class="statusAd">
+<h4>Makeing your ad live will display in listing</h4>
+{exp:channel:form channel="{segment_3}" return="member/my-ads" entry_id="{segment_4}" status="open|closed"}
+<input name="status" type="checkbox" value="open" hidden="hidden" checked/>     
+<input type="submit" value="Make this ad live" />
+{/exp:channel:form}
+</div>
+
+{if:elseif segment_5=="false"}
+
+<div id="memberAdBody" class="statusAd">
+<h4>Making you ad inactive will remove your ad from listings</h4>
+{exp:channel:form channel="{segment_3}" return="member/my-ads" entry_id="{segment_4}" status="open|closed"}
+<input name="status" type="checkbox" value="closed" hidden="hidden" checked/>    
+<input type="submit" value="Make this ad inactive" />
+{/exp:channel:form}
+</div>
+
+{/if}

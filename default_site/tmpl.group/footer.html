@@ -1,0 +1,132 @@
+</div><!-- wrapper ends -->	
+
+<div id="footer">  
+
+    <div id="footerInner">
+
+        <p class="left">TubeMe &copy; 2014  &nbsp; All rights reserved.</p>		
+
+        <div class="right footerRight">
+            <a href="{site_url}/tubeme/terms-of-use">Terms of use</a>
+            &nbsp;&nbsp;<a href="{site_url}/tubeme/cookie-policy">Cookie policy</a>
+            &nbsp;&nbsp;<a {if logged_in}href="{site_url}/member/contact-us"{if:else} href="" class="footerContactUs"{/if}>Contact us</a>
+            {if logged_out}
+            &nbsp;&nbsp;<a href="{site_url}/member/home">Advertisers</a>
+            {/if}	
+        </div>	
+
+        <div id="footerContactUsForm">				
+
+            <div id="contactUsForm">
+
+                <div class="footerContactUsHead">
+                    <p class="left">Please fill out form to contact us. All fields are mandatory.</p>
+                </div>
+
+                {exp:freeform:form form_name="public_contact_us_form" ajax="yes" required="email|user_message|first_name|subject" return="tubeme/contact-us-thank-you"}
+
+                <div class="contactUsFormLeft left">
+                    <p>
+                        <label>Name:</label>
+                        <input type="text" name="first_name" value="Your name" onblur="if (this.value == '') {this.value='Your name';}" onfocus="if (this.value == 'Your name') { this.value = ''; }"/>
+                    </p>
+                    <p>
+                        <label>Subject:</label>
+                        <input type="text" name="subject" value="Subject" onblur="if (this.value == '') {this.value='Subject';}" onfocus="if (this.value == 'Subject') { this.value = ''; }"/>
+                    </p>
+                    <p>
+                        <label>Email:</label>
+                        <input type="text" name="email" value="Your email" onblur="if (this.value == '') {this.value='Your email';}" onfocus="if (this.value == 'Your email') { this.value = ''; }"/>
+                    </p>
+                </div>
+
+                <div class="contactUsFormLeft left">
+                    <p>
+                        <label>Your message:</label>
+                        <textarea name="user_message"></textarea>
+                    </p>
+                </div>
+
+                <div class="contactUsFormRight right">
+                    <p>
+                        <label>Captcha:</label>
+                        {freeform:captcha} 
+                        <input type="text" name="captcha" id="contactUsCaptcha" /> 
+                    </p>
+                    <p>
+                        <input type="submit" value="Submit" class="right"/>
+                    </p>
+                </div>
+                <input type="hidden" name="XID" value="{XID_HASH}" />
+
+                {/exp:freeform:form}
+
+            </div>
+
+        </div>	
+
+    </div>
+
+</div>	
+
+<div id="overlay">
+    <img src="{site_url}/images/style/275.gif" width="80" height="16" />
+</div>	
+
+{if segment_1=='member' || segment_1=='members'}
+{if:else}
+<div id="favoritesBlock">
+    <p>F<br />a<br />v<br />o<br />r<br />i<br />t<br />e<br />s</p>
+    <div id="favoritesBlockContainer">
+        <div id="favoritesList">
+        </div>
+    </div>
+</div>
+{/if}
+
+{exp:minimee:js minify="yes" combine="yes"}
+<script type="text/javascript" src="{site_url}/js/global.js"></script> 
+<script type="text/javascript" src="{site_url}/js/cookie.js"></script>
+<script type="text/javascript" src="{site_url}/js/jquery.tn3lite.min.js"></script>
+<script type="text/javascript" src="{site_url}/js/jquery.mCustomScrollbar.min.js"></script>
+{/exp:minimee:js}
+
+<script type="text/javascript">
+     var open = [{exp:channel:entries channel="bars|clubs|restaurants" group_id="1|5|6|7" dynamic="off" status="open" backspace="1"}"{entry_id}",{/exp:channel:entries}],
+         localStorageKeys = Object.keys(localStorage);
+
+    function getMatch(a, b) {
+        var matches = [];
+        for ( var i = 0; i < a.length; i++ ) {
+            for ( var e = 0; e < b.length; e++ ) {
+                if ( a[i] === b[e] ) matches.push( a[i] );
+            }
+        }
+        return matches;
+    }
+    
+    //localstorage entries
+    var g = getMatch(localStorageKeys, open);    
+    window.ge = g; 
+    window.siteUrl = '{site_url}';
+    
+    // perform cleanup of deleted entries from localStorage
+    //localStorage.removeItem("deleted entries id's")
+</script>
+	
+{if segment_1 == "member" || segment_1=="members"}
+<script type="text/javascript" src="{site_url}/js/iphone-style-checkboxes.js"></script>
+<script type="text/javascript" src="{site_url}/js/members.js"></script>
+{/if}
+
+<script type="text/template" id="favoriteItem">
+    <a href=""></a>	
+</script>
+
+<script type="text/template" id="mobileSite">
+    <a href="{site_url}/mobile" id="goToMobile">Go to Mobile Site</a>	
+</script>
+
+</body>
+
+</html>

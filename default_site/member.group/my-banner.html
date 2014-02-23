@@ -1,0 +1,80 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+{embed="tmpl/head"}
+
+<div id="main"> 
+
+    <div id="loader">
+        <img alt="Loading ..." src="/images/style/ajax-loading.gif">
+    </div>
+
+    <div id="memberMyAdContent">
+
+        <script type="text/javascript">
+        setTimeout(function() {
+            $('.remove_file').on('click', function() {
+                $('#isImageSubmit').show();
+            });
+            $('.undo_remove').on('click', function() {
+                $('#isImageSubmit').hide();
+            });
+        }, 1500);
+
+        </script>
+
+        <h1>My banner image</h1>        
+
+    {exp:channel:entries channel="members_banner_images" author_id="CURRENT_USER"} 
+
+        {if banner_image}
+
+            <div class="block bannerImageMyWeb">
+                <img src="{banner_image}" alt="" width="680" height="235" />
+            </div>
+
+            <p>Change image</p>
+            <p>Image size: width 680px, height 235px</p>
+            <br />
+            {exp:channel:form channel="members_banner_images" return="member/my-banner" url_title="{url_title}"} 
+                <input name="title" type="text" value="{url_title}" hidden/>
+                {field:banner_image}
+                <br />
+                <input type="submit" id="isImageSubmit" style="display: none;" value="Save" />
+            {/exp:channel:form} 
+
+        {if:elseif banner_image=="" || no_results}
+            <!-- when image entry was creted and image was deleted -->
+            <p>You have no your page banner image</p>
+            <p>Add image for your page banner</p>
+            <br />
+            {exp:channel:form channel="members_banner_images" return="member/my-banner" entry_id="{entry_id}"}
+            <input name="title" type="text" value="{exp:member:custom_profile_data}{web_app_url}{/exp:member:custom_profile_data}" hidden/>
+                {field:banner_image}
+                <br />
+                <input type="submit" value="Save image" />
+            {/exp:channel:form}
+
+        {/if}  
+        
+        <!-- if no banner image entry created previously -->
+        {if no_results} 
+            <p>You have no your page banner image</p>
+            <p>Add image for your page banner</p>
+            <br />
+            {exp:channel:form channel="members_banner_images" return="member/my-banner"}
+            <input name="title" type="text" value="{exp:member:custom_profile_data}{web_app_url}{/exp:member:custom_profile_data}" hidden/>
+                {field:banner_image}
+                <br />
+                <input type="submit" value="Save image" />
+            {/exp:channel:form} 
+        {/if} 
+
+    {/exp:channel:entries}  
+
+    </div>  
+
+</div>
+
+{embed="tmpl/member-sub-menu"}
+
+{embed="tmpl/footer"}

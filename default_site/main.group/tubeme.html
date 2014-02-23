@@ -1,0 +1,18 @@
+{embed="tmpl/head"}	
+<div id="main" class="generalPage">	
+
+    {if segment_2=="terms-of-use" || segment_2=="cookie-policy"}
+    {exp:channel:entries channel="general_pages" status="open" url_title="{segment_2}"}
+    <h1>{title}</h1>
+    {text}
+    {/exp:channel:entries}
+    {if:elseif segment_2=="contact-us-thank-you"}
+    <h1>Thank you</h1>
+    <h3>Thank you for contacting us. We will be in touch with you very soon.</h3>
+    {/if}				
+
+</div>
+
+{embed="tmpl/sub-menu"}
+
+{embed="tmpl/footer"}

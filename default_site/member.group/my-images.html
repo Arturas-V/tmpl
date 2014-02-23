@@ -1,0 +1,38 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+{embed="tmpl/head"}
+
+<div id="main"> 
+
+    <div id="loader">
+        <img alt="Loading ..." src="/images/style/ajax-loading.gif">
+    </div>
+
+    <div id="memberMyAdContent">       
+
+        <h1>My images</h1> 
+
+        <p>You can upload maximum 20 images.</p>   
+
+        {exp:channel:entries channel="premium_members_pages" author_id="CURRENT_USER" status="open"}       
+        
+
+        {exp:channel:form channel="premium_members_pages" return="member/my-images" author_id="CURRENT_USER" entry_id="{entry_id}"}
+
+        {field:my_images} 
+        <br />
+        <div class="submitContainer right">
+            <input type="submit" value="Save images"/>
+        </div>
+
+        {/exp:channel:form}
+
+        {/exp:channel:entries} 
+
+    </div>  
+
+</div>
+
+{embed="tmpl/member-sub-menu"}
+
+{embed="tmpl/footer"}

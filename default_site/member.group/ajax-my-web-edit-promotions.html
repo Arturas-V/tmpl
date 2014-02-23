@@ -1,0 +1,26 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+<div class="myWebEditTop">
+    <h1 class="left">Promotions</h1>
+    <p class="closeModal button right">close</p>
+</div>
+
+<div id="memberAdBody" class="editAd">
+
+    {exp:channel:form 
+    channel="{segment_3}" 
+    return="member/my-web" 
+    author_id="CURRENT_USER" 
+    entry_id="{segment_4}"}  
+
+    {field:promotions}
+    <div class="hidden">
+    	<!-- this is to call images upload in wygwan editor -->
+	    {field:my_images}
+	</div>
+    
+    <input type="submit" class="right" value="Submit" />
+
+    {/exp:channel:form} 
+
+</div>

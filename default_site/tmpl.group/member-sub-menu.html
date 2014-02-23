@@ -1,0 +1,40 @@
+<div id="subMenu">
+
+    {if logged_in}     
+    <!--  satndart members -->
+    {if member_group=="5"}
+    <h1>My menu</h1>
+    <ul>
+        <li><a href="{site_url}/member">My profile</a></li>
+        <li><a href="{site_url}/member/my-ads">My Ads</a></li>
+        <li><a href="{site_url}/members/edit_userpass">Username and password</a></li>
+        <li><a href="{site_url}/member/contact-us">Contact us and support</a></li>
+        <li><a href="{site_url}/member/terms-of-service">Terms of service</a></li>
+    </ul>
+    {if:elseif member_group=="1" || member_group=="6"}
+    <!-- premiums members and admins  -->
+    <h1>My menu <span>premium<span></h1>
+    <ul>
+        <li><a href="{site_url}/member">My profile</a></li>
+        <li><a href="{site_url}/member/my-ads">My Ads</a></li>
+        <li><a href="{site_url}/member/my-web">My Page (premium)</a></li>        
+        <li><a href="{site_url}/member/my-images">My images (premium)</a></li>
+        <li><a href="{site_url}/member/my-banner">My banner image (premium)</a></li>
+        <li><a href="{site_url}/members/edit_userpass">Username and password</a></li>
+        <li><a href="{site_url}/member/contact-us">Contact us and support</a></li>
+        <li><a href="{site_url}/member/terms-of-service">Terms of service</a></li>
+    </ul>
+    {/if}
+    {/if}
+    
+    {if logged_out}
+    <h1>Members area</h1>
+    <ul>
+        <li><a href="{site_url}/member/login">Member login</a></li>
+        <li><a href="{site_url}/members/register">Register</a></li>    
+        <li><a href="{site_url}/members/forgot_password">Forgot password</a></li>  
+        <li><a class="footerContactUs" href="">Contact us</a></li> 
+        <li><a href="{site_url}/member/terms-of-service">Terms of service</a></li>
+    </ul>
+    {/if}
+</div>

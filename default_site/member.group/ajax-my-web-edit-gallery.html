@@ -1,0 +1,20 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+<div class="myWebEditTop">
+    <h1 class="left">Gallery</h1>
+    <p class="closeModal button right">close</p>
+</div>
+
+<div id="memberAdBody" class="editAd">
+	
+	<p><strong>You can upload maximum 10 images</strong></p>
+	<p><strong>Maximum File Size 2MB</strong></p> 
+	<p><strong>Maximum Image Width (in pixels) 680</strong></p> 
+	<p><strong>Maximum Image Height (in pixels) 300</strong></p> 
+	
+	{exp:channel:form channel="{segment_3}" return="member/my-web" author_id="CURRENT_USER" entry_id="{segment_4}"}  
+	{field:gallery}	
+	<input type="submit" class="right" value="Submit" />
+	{/exp:channel:form}
+
+</div>

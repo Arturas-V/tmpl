@@ -1,0 +1,25 @@
+<div id="nav-panel" class="ui-panel ui-panel-position-left ui-panel-display-reveal ui-body-a ui-panel-animate ui-panel-closed" data-theme="a" data-display="reveal" data-position-fixed="false" data-position="left" data-role="panel">
+    <div class="ui-panel-inner">
+        <ul class="nav-search ui-listview" style="margin-top:-16px;" data-divider-theme="a" data-theme="a" data-role="listview">
+            <li><a href="{site_url}/mobile/favorites" data-transition="slidedown">My Favorites</a></li>
+            {if segment_2=="" || segment_2=="main-locations"}
+            <!-- locations nav for homepage and main --> 
+                {exp:gwcode_categories cat_group="1" show_empty="no" channel="bars|clubs|restaurants" style="linear" status="open"}
+                <li><a href="{site_url}/mobile/main-locations/{cat_id}" data-transition="flow" class="mainLoc" id="{cat_url_title}" data-loc-id="{cat_id}">{cat_name}&nbsp;&#40;{entry_count}&#41;</a></li>
+                {/exp:gwcode_categories}                
+            {if:elseif segment_4}
+            <!-- locations nav bars, clubs, restaurants and so on  -->
+                {exp:gwcode_categories show_empty="no" channel="{segment_3}" style="linear" status="open"}
+                <li><a href="{site_url}/mobile/sub-locations/{segment_3}/{cat_id}" data-transition="flow" class="mainLoc" id="{cat_url_title}" data-loc-id="{cat_id}">{cat_name}&nbsp;&#40;{entry_count}&#41;</a></li>
+                {/exp:gwcode_categories}
+            {if:elseif segment_2}
+            <!-- locations nav bars, clubs, restaurants and so on  -->
+                {exp:gwcode_categories show_empty="no" channel="{segment_2}" style="linear" status="open"}
+                <li><a href="{site_url}/mobile/sub-locations/{segment_2}/{cat_id}" data-transition="flow" class="mainLoc" id="{cat_url_title}" data-loc-id="{cat_id}">{cat_name}&nbsp;&#40;{entry_count}&#41;</a></li>
+                {/exp:gwcode_categories}
+            {/if}
+        </ul>
+    </div>
+</div>
+
+

@@ -1,0 +1,152 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+{embed="tmpl/head"}
+
+<div id="main"> 
+
+    <div id="loader">
+        <img alt="Loading ..." src="/images/style/ajax-loading.gif">
+    </div>
+
+    <div id="memberMyAdContent">
+
+        <h1>My ads</h1>
+        <h2>You can create maximum 7 ads per your account.</h2>
+        <h2>You can have one live ad per your account.</h2>
+        <br />
+        <div class="createDiv">             
+        
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    var el = $('.blockMemberAd');
+                    
+                    if (el.length >= 7) {
+                        $('.removeLinks').remove();
+                        $('#createAdLinks').append('<br /><h4>You have reached maximum 7 ads per account.<br/>Please delete ads if you want to create new.</h4>')
+                    } else if (el.length <= 7) {
+                        $('.removeLinks').show();
+                    }                  
+                    
+                });
+            </script>
+                     
+            <div id="createAdLinks">
+                <div class="removeLinks">
+                    <h4>Create new ad:</h4>
+                    <a href="" class="createAd button" data-type="bars">Bar</a>
+                    <a href="" class="createAd button" data-type="clubs">Club</a>
+                    <a href="" class="createAd button" data-type="restaurants">Restaurant</a> 
+                </div>
+            </div>
+         </div>  
+
+        <!-- add channel short name if created new -->
+        {exp:channel:entries channel="bars|clubs|restaurants" author_id="CURRENT_USER" status="open"}
+        {if total_results > 0 || total_results == 1}
+            <script type="text/javascript">
+            $(document).ready(function() {
+                $('.otherSel').remove();
+            });
+            </script>
+        {/if}
+        {if total_results >= 2}
+            <script type="text/javascript">
+            $(document).ready(function() {
+                $('.remAll').remove();
+            });
+            </script>
+        {/if}
+        {/exp:channel:entries}
+           
+
+    {exp:channel:entries channel="bars|clubs|restaurants" author_id="CURRENT_USER" status="open|closed" show_future_entries="yes"} 
+        <div class="blockMemberAd {status}">
+
+                <div class="on_off">
+                {if status == 'open'}                
+                    <input type="checkbox" class="remAll" {if status=="open"}checked{/if} data-entry-id="{entry_id}" data-channel-name="{channel_short_name}"/> 
+                {/if} 
+                <input type="checkbox" class="otherSel remAll" {if status=="open"}checked{/if} data-entry-id="{entry_id}" data-channel-name="{channel_short_name}"/> 
+                <span id="status">Status of your ad: {if status=="open"}<span class="green">Active</span>{if:elseif status=="closed"}<span class="red">Inactive</span>{/if}</span>  
+                </div>    
+
+            <div class="date">
+                <p>{entry_date format="%d"}</p>
+                <p>{entry_date format="%M"}</p>
+            </div>            
+            
+            <div class="ad-default-img">
+            {if image}                
+                <img src="{image}" width="180" height="130" />               
+            {/if}
+            </div>
+
+            <div class="mainIten">
+
+                <h2>{title}</h2>
+                <h4>{subtitle}</h4>
+
+                <div class="postLinks">
+                    <a href="" class="postPreview" data-entry="{entry_id}" data-channel-name="{channel_short_name}">preview</a>
+                    <a href="" class="postEdit" data-entry="{entry_id}" data-channel-name="{channel_short_name}">edit</a>
+                    <a href="" class="deleteAd" data-entry="{entry_id}" data-channel-name="{channel_short_name}">delete</a>             
+                </div>
+
+            </div>
+
+        </div>
+
+    {/exp:channel:entries}  
+
+    </div>  
+
+</div>
+
+{embed="tmpl/member-sub-menu"}
+
+<script type="text/template" id="preview">
+    <div id="memberModal">
+        <div class="closeM">
+            <p class="closeModal button">close</p>
+        </div>
+        <div id="memberModalBody">
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="edit">
+    <div id="memberModal">        
+        <div id="memberModalBody">
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="create">
+    <div id="memberModal">        
+        <div id="memberModalBody">
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="delete">
+    <div id="memberModal" class="adDeleteModal">
+        <div id="memberModalBody">
+            <h2>Confirm ad deletion</h2>
+            <a href="" id="adDeleteConfirm" class="dump button">delete</a>
+            <a href="" class="closeModal button dump">cancel</a>
+            <a href="" id="deletedOk" class="button close">ok</a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="statusChange">
+    <div id="memberModal">
+        <div class="closeM">
+            <p class="closeModal button">close</p>
+        </div>
+        <div id="memberModalBody">
+        </div>
+    </div>
+</script>
+
+{embed="tmpl/footer"}

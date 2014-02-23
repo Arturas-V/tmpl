@@ -1,0 +1,63 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+<div id="memberAdBody" class="editAd">
+{exp:channel:form channel="{segment_3}" return="member/my-ads" author_id="CURRENT_USER"}
+    <div class="editAdLeft">
+        <h4 class="noTop">Image: <span class="normalFont">&#40;size: 180x130&#41;</span></h4>
+        {field:image}
+        <h4>Date:</h4>
+        <input type="text" name="entry_date" id="entry_date" value="{entry_date format='%d-%M-%Y'}" maxlength="23" size="25"/>
+        <h4>Nearest stations:</h4>
+        <p>Station 1</p>
+        <select name="category[]" id="categories">
+            <option value="" selected="selected">select</option>
+            {exp:channel:categories channel="{segment_3}" style="linear" category_group="1"}
+            <option value="{category_id}">{category_name}</option>
+            {/exp:channel:categories}
+        </select>
+        <p>Station 3</p>
+        <select name="category[]" id="categories">
+            <option value="" selected="selected">select</option>
+            {exp:channel:categories channel="{segment_3}" style="linear" category_group="1"}
+            <option value="{category_id}">{category_name}</option>
+            {/exp:channel:categories}
+        </select>
+        <p>Station 3</p>
+        <select name="category[]" id="categories">
+            <option value="" selected="selected">select</option>
+            {exp:channel:categories channel="{segment_3}" style="linear" category_group="1"}
+            <option value="{category_id}">{category_name}</option>
+            {/exp:channel:categories}
+        </select>        
+    </div>
+    <div class="editAdRight">
+        <div class="adRightTop">
+            <div class="titlesInputs">
+                <p>Title: <span class="normalFont">&#40;max 128 characters&#41;</span></p>
+                <input name="title" type="text" value="{title}"/>
+                <p>Subtitle:1 <span class="normalFont">&#40;max 128 characters&#41;</span></p>
+                <input name="subtitle" type="text" value="{subtitle}"/>
+            </div>
+            <div class="closeM noMargin">
+                <p class="closeModal button">close</p>
+            </div>
+        </div>
+        <div class="editAdEditor"> 
+            <p>Content of your ad:</p>     
+            {field:description_of_your_place}       
+        </div>        
+    </div>   
+    <div class="editAdEditor getLocationField"> 
+        <div class="submitContainer left">
+            <input type="submit" value="Post ad"/>
+        </div>
+        <div class="editAdRight">
+            <p>Copy and paste your location from google maps, you can use short URL eg. (http://goo.gl/maps/Alhm6)</p>     
+            {field:get_location}        
+        </div>
+    </div>     
+{/exp:channel:form}
+</div>
+
+
+

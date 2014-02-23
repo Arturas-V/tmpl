@@ -1,0 +1,31 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+<div class="myWebEditTop">
+    <h1 class="left">Find us</h1>
+    <p class="closeModal button right">close</p>
+</div>
+
+<div id="memberAdBody" class="editAd findUsMyWeb">
+
+    {exp:channel:form 
+    channel="{segment_3}" 
+    return="member/my-web" 
+    author_id="CURRENT_USER" 
+    entry_id="{segment_4}"}  
+
+    {field:find_us}
+    <div class="hidden">
+        <!-- this is to call images upload in wygwan editor -->
+        {field:my_images}
+    </div>
+
+    <div class="adMapSet">
+    	<p>Copy and paste iframe code from google maps for your location. Max map width: 680px</p>
+	    {field:location_map}
+	</div>
+    
+    <input type="submit" class="right" value="Submit" />
+
+    {/exp:channel:form} 
+
+</div>

@@ -1,0 +1,119 @@
+<div id="subMenu">
+
+	{if (segment_1=="restaurants" || segment_1=="bars" || segment_1=="clubs") && segment_2!=""}
+		<!-- wacked in member ad info  -->
+		{exp:channel:entries channel="{segment_1}" url_title="{segment_2}" dynamic="off" status="open"}
+		<div class="memberPageAddInfo">
+			{if group_id=="6" || group_id=="1"}
+			<div class="adsItemLeftInfoBlock">
+				<h4>My Page:</h4>
+				<a href="{site_url}/{exp:member:custom_profile_data member_id="{author_id}"}{web_app_url}{/exp:member:custom_profile_data}">{title}</a>
+			</div>
+			{/if}
+                        {if get_location}
+			<div class="adsItemLeftInfoBlock">
+				<h4>Location:</h4>
+				<a href="{get_location}" target="_blank">map location</a>
+			</div>
+                        {/if}
+			<div class="adsItemLeftInfoBlock">
+				<h4>Nearest stations:</h4>
+				<ul>
+					{categories show_group="1" limit="3"}<li>{category_name}</li>{/categories}										
+				</ul>			
+			</div>	
+			<div class="adsItemLeftInfoBlock">
+		    	<h4>Share with others:</h4>
+				{exp:hj_social_bookmarks entry_id="{entry_id}" sites="Facebook|Twitter|Google+|LinkedIn|Email" entry_id="{entry_id}"}
+			</div>			
+		</div>
+		{/exp:channel:entries}
+
+	{if:elseif segment_1=="restaurants" || segment_1=="bars" || segment_1=="clubs"}
+
+		<h1>Tube Stations</h1>
+		<ul class="locMenuBar">
+			{exp:gwcode_categories show_empty="no" channel="{segment_1}" style="linear" status="open"}
+			    <li><a href="" class="typeLoc" id="{cat_url_title}" data-channel="{segment_1}" data-loc-id="{cat_id}"><span class="locationName">{cat_name}</span>&nbsp;&#40;{entry_count}&#41;</a></li>
+			{/exp:gwcode_categories}			
+		</ul>	
+
+	{if:elseif segment_1==""}
+
+		<h1>Tube Stations</h1>
+		<ul class="locMenuBar">
+			{exp:gwcode_categories show_empty="no" channel="bars|clubs|restaurants" style="linear" status="open"}
+			    <li><a href="" class="mainLoc" id="{cat_url_title}" data-loc-id="{cat_id}"><span class="locationName">{cat_name}</span>&nbsp;&#40;{entry_count}&#41;</a></li>
+			{/exp:gwcode_categories}			
+		</ul>
+
+	{if:elseif segment_1=="tubeme"}
+
+		<h1></h1>
+		<ul>
+			<li><a href="{site_url}/tubeme/terms-of-use">Terms of use</a></li>
+			<li><a href="{site_url}/tubeme/cookie-policy">Cookie policy</a></li>
+			<li><a href="" class="footerContactUs">Contact us</a></li>
+			<li>{if logged_out}<a href="{site_url}/member/home">Advertisers</a>{/if}</li>
+		</ul>
+                
+        {if:elseif segment_1=="test" && segment_2=="ad"}
+        
+            <!-- test ad  -->
+        
+                {exp:channel:entries url_title="{segment_3}" dynamic="off" status="open|closed"}
+		<div class="memberPageAddInfo">
+			{if group_id=="6" || group_id=="1"}
+			<div class="adsItemLeftInfoBlock">
+				<h4>My Page:</h4>
+				<a href="{site_url}/{exp:member:custom_profile_data member_id="{author_id}"}/test/page/{web_app_url}{/exp:member:custom_profile_data}">{title}</a>
+			</div>
+			{/if}
+                        {if get_location}
+			<div class="adsItemLeftInfoBlock">
+				<h4>Location:</h4>
+				<a href="{get_location}" target="_blank">map location</a>
+			</div>
+                        {/if}
+			<div class="adsItemLeftInfoBlock">
+                            <h4>Nearest stations:</h4>
+                            <ul>
+                                {categories show_group="1" limit="3"}<li>{category_name}</li>{/categories}										
+                            </ul>			
+			</div>			
+		</div>
+		{/exp:channel:entries}               
+
+	{if:else}
+		<!--  my web right side widget -->
+		{exp:query sql="SELECT author_id FROM exp_channel_titles WHERE url_title = '{segment_1}' LIMIT 1"}
+	
+		<div class="memberPageAddInfo">
+			{exp:channel:entries channel="bars|clubs|restaurants" author_id="{author_id}" status="open" dynamic="off" limit="1"}
+			<div class="adsItemLeftInfoBlock">
+				<h4>My Full Ad:</h4>
+				<a href="{site_url}/{channel_short_name}/{url_title}">{title}</a>
+			</div>
+                        {if get_location}
+			<div class="adsItemLeftInfoBlock">
+				<h4>Location:</h4>
+				<a href="{get_location}" target="_blank">map location</a>
+			</div>
+                        {/if}
+			<div class="adsItemLeftInfoBlock">
+				<h4>Nearest stations:</h4>
+				<ul>
+					{categories show_group="1" limit="3"}<li>{category_name}</li>{/categories}										
+				</ul>			
+			</div>	
+			<div class="adsItemLeftInfoBlock">
+		    	<h4>Share with others:</h4>
+				{exp:hj_social_bookmarks entry_id="{entry_id}" sites="Facebook|Twitter|Google+|LinkedIn|Email" entry_id="{entry_id}"}
+			</div>
+			{/exp:channel:entries}	
+		</div>	
+		{/exp:query}
+
+	{/if}
+
+</div>

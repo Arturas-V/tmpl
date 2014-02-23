@@ -1,0 +1,91 @@
+{embed="mobile-embed/head"}	
+
+<!-- about us and landing page for my page starts  -->
+<section data-role="page" data-theme="a" id="myWeb">
+
+    {embed="mobile-embed/menu-wrapper"}
+
+    {exp:channel:entries channel="premium_members_pages" url_title="{segment_3}" status="open" limit="1"}
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <a href="{site_url}/mobile/page" class="backFromMyWeb" data-role="button" data-rel="back" data-icon="back" data-iconpos="left"></a>
+        <h1>{title}</h1>	
+        <a href="#menu" data-role="button" class="ui-button-right menu-button"  data-icon="grid"></a>		
+    </header>	
+
+    <div data-role="content" class="memberPageTopMenu">
+        <div data-role="navbar" role="navigation" class="myWebMenuTop">
+            <ul>
+                <li><a href="" data-id="myWebAbout" class="ui-btn-active" data-transition="none">About us</a></li>
+                <li><a href="" data-id="myWebGallery">Gallery</a></li>
+                <li><a href="" data-id="myWebWhats">Whats on</a></li>
+            </ul>
+            <ul>
+                <li><a href="" data-id="myWebPromotions">Promotions</a></li>
+                <li><a href="" data-id="myWebFind">Find us</a></li>
+            </ul>
+        </div>	
+    </div>
+
+    <script type="text/javascript">
+        $(document).bind('pageinit', function() {
+            $('.myWebMenuTop a').on('tap', function(e) {
+                e.preventDefault();
+                var el = $(this).attr('data-id'),
+                bl = $('.myWebTab[data-id="'+el+'"]');						
+                $('.myWebTab').hide();
+                bl.show();
+            });
+            if ($('#Gallery li').length > 0) {
+                var myPhotoSwipe = $("#Gallery a").photoSwipe({ enableMouseWheel: false , enableKeyboard: false });
+            }
+				
+        });
+    </script>
+
+    <div data-role="content" data-theme="a" class="memberMyWebContentBlock">
+
+        <div data-id="myWebAbout" class="myWebTab">
+            <h1>About us</h1>
+            <div class="myWebContent">{about_us}</div>
+        </div>
+
+        <div data-id="myWebGallery" class="myWebTab hideTab">
+            <h1>Gallery</h1>
+            <div class="myWebContent">
+                <ul id="Gallery">
+                    {gallery}
+                    <li><a href="{image:url:large}"><img src="{image:url:large}"></a></li>
+                    {/gallery}
+                </ul>
+            </div>
+        </div>
+
+        <div data-id="myWebWhats" class="myWebTab hideTab">
+            <h1>Whats on</h1>
+            <div class="myWebContent">{whats_on}</div>
+        </div>
+
+        <div data-id="myWebPromotions" class="myWebTab hideTab">
+            <h1>Promotions</h1>
+            <div class="myWebContent">{promotions}</div>
+        </div>
+
+        <div data-id="myWebFind" class="myWebTab hideTab">
+            <h1>Find us</h1>
+            <div class="myWebContent">
+                {find_us}
+                <div class="mapMyWeb">
+                    <a href="{get_location}" target="_blank" data-role="button" data-transition="none" data-iconpos="right">Map location</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="myPageLinks">
+            <a href="{site_url}/mobile/page" data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="left">Full Ad</a>
+            <br />
+            <div class="fullSiteViewLink"><a href="{site_url}/{segment_3}" data-role="button" rel="external" data-ajax="false" data-transition="none">Full site</a></div>
+        </div>
+    </div>
+    {/exp:channel:entries}		
+
+{embed="mobile-embed/footer"}

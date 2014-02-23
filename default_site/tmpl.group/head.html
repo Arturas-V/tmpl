@@ -1,0 +1,204 @@
+<?php 
+if (isset($_COOKIE['desktopSite'])){
+    //allow mobile user desktop version
+    $cookie = $_COOKIE['desktopSite'];
+}
+else {
+    //if not cookie redirect user to mobile
+    require_once './php/mobile-detect.php';
+    $detect = new Mobile_Detect;
+
+    if ( $detect->isMobile() || $detect->isTablet() ) {
+        header("Location: http://tubeme.co.uk/mobile");
+        exit;
+    }
+}
+?>
+<!doctype html>
+<html>
+    <head>
+        <title>{if segment_1=='tubeme' && segment_2=='terms-of-use'}Terms of use - {if:elseif segment_1=='tubeme' && segment_2=='cookie-policy'}Cookie policy - {if:elseif segment_1=='member' || segment_1=='members'}Advertisers - {if:elseif (segment_1=='bars' || segment_1=='restaurants' || segment_1=='clubs') && segment_2}{exp:channel:entries channel='{segment_1}' limit='1'}{title}{/exp:channel:entries} - {if:elseif segment_1=='bars' || segment_1=='restaurants' || segment_1=='clubs'}{exp:channel:info channel='{segment_1}'}{channel_title} - {/exp:channel:info}{if:elseif segment_1}{exp:channel:entries url_title='{segment_1}' channel='premium_members_pages'}{title}{/exp:channel:entries} - {/if}TubeMe</title>
+
+        <meta name="description" content="Best Venues in London Near your Station"/>
+        <meta name="keywords" content="London Bars, London Clubs, London Restaurants, Best Venues in London"/>
+        {if segment_1=="member|member"}
+        <meta name="robots" content="noodp,noydir"/>
+        <meta name="robots" content="index, follow"/>
+        {/if}
+
+        <link rel="alternate" media="only screen and (max-width: 640px)" href="http://www.tubeme.co.uk/mobile" >        
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+        <!-- style -->
+        {exp:minimee:css minify="yes" combine="yes"}
+        <link rel='stylesheet' type='text/css' href='{site_url}/style/main.css' media='screen' />
+        <link rel='stylesheet' type='text/css' href='{site_url}/style/jquery-ui-1.10.3.custom.min.css' media='screen' />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+        {/exp:minimee:css}
+        
+
+        <!-- libs  -->
+        {exp:minimee:js combine="yes"}
+        <script type="text/javascript" src="{site_url}/js/jquery.js"></script>
+        <script type="text/javascript" src="{site_url}/js/jquery-ui-1.10.3.custom.min.js"></script>
+        {/exp:minimee:js}
+
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-13015867-13']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <!-- End Google Analytics -->
+
+    </head>
+
+    <body>
+
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+        <div id="white"></div>       
+
+        <div id="wrapper">
+            
+            <div id="cookie">
+                <p>We use cookies to give you the best possible experience on our site. By continuing to use the site you agree to our use of cookies. <a href="{site_url}/tubeme/cookie-policy">Find out more</a> <span id="closeCookie">&times;</span></p>
+            </div>
+
+            <div id="header">
+
+                <div id="headerLeft">
+
+                    <div id="stickyHead">
+
+                        <div id="logo">
+                            <a href="{site_url}"><img src="http://tubeme.co.uk/images/style/logo/logo.png" alt="TubeMe"></a>
+                            <p>Best Venues in London Near your Station</p>
+                        </div>
+
+                        <ul id="mainMenu">
+                            <li><a href="{site_url}">Home</a></li>
+                            <li><a href="{site_url}/bars">Bars &amp; Pubs</a></li>
+                            <li><a href="{site_url}/clubs">Clubs</a></li>
+                            <li><a href="{site_url}/restaurants">Restaurants</a></li>
+                        </ul>
+
+                    </div>
+
+                    <div id="banner">
+
+                        {if segment_1=="bars" && segment_2==""}
+                        <!-- banners for bar pages -->
+                        <ul id="carousel">
+                            {exp:channel:entries channel="bars_banner_images" status="open"}
+                            <li>{banners_image}<img src="{image:url}" alt="" width="730" height="250" />{/banners_image}<div class="caption"><a href="{image_url}">{banner_text}</a></div></li>
+                            {/exp:channel:entries} 
+                        </ul>
+                        <span id="prev"></span>
+                        <span id="next"></span>
+                        {if:elseif segment_1=="clubs" && segment_2==""}
+                        <!-- banners for club pages -->
+                        <ul id="carousel">
+                            {exp:channel:entries channel="clubs_banner_images" status="open"}
+                            <li>{banners_image}<img src="{image:url}" alt="" width="730" height="250" />{/banners_image}<div class="caption"><a href="{image_url}">{banner_text}</a></div></li>
+                            {/exp:channel:entries} 
+                        </ul>
+                        <span id="prev"></span>
+                        <span id="next"></span>
+                        {if:elseif segment_1=="restaurants" && segment_2==""}
+                        <!-- banners for restaurant pages -->
+                        <ul id="carousel">
+                            {exp:channel:entries channel="restaurants_banner_images" status="open"}
+                            <li>{banners_image}<img src="{image:url}" alt="" width="730" height="250" />{/banners_image}<div class="caption"><a href="{image_url}">{banner_text}</a></div></li>
+                            {/exp:channel:entries} 
+                        </ul>
+                        <span id="prev"></span>
+                        <span id="next"></span>
+                        {if:elseif !segment_1}
+                        <!-- banner for homepage  -->
+                        <ul id="carousel">
+                            {exp:channel:entries channel="homepage_banner" status="open"}
+                            <li>{banners_image}<img src="{image:url}" alt="" width="730" height="250" />{/banners_image}<div class="caption"><a href="{image_url}">{banner_text}</a></div></li>	
+                            {/exp:channel:entries} 
+                        </ul>
+                        <span id="prev"></span>
+                        <span id="next"></span>
+                        {if:elseif segment_1=="member" || segment_1=="members" || segment_1=="tubeme"}
+                        <!-- general banner  -->
+                        <img src="{site_url}/images/style/banner.jpg" width="730" height="250" />	
+
+                        {if:elseif segment_1 && segment_2==""}
+                        <!-- my web banner image  -->
+                        {exp:channel:entries channel="members_banner_images" url_title="{segment_1}" status="open" dynamic="off" limit="1"}
+                        <img src="{banner_image}" width="730" height="250" />
+                        {if no_results}<img src="{site_url}/images/style/banner.jpg" width="730" height="250" />{/if}
+                        {/exp:channel:entries}                       
+
+                        {if:elseif segment_1}
+                        <!-- standart ad banner image  -->
+                        {exp:query sql="SELECT author_id FROM exp_channel_titles WHERE url_title = '{segment_2}'"}
+                        {exp:channel:entries channel="members_banner_images" author_id="{author_id}" status="open" dynamic="off" limit="1"}                        
+                        
+                        <img src="{banner_image}" width="730" height="250" />
+                        
+                        {/exp:channel:entries}
+                        {/exp:query}                        
+       
+                        {/if}
+
+                    </div>
+
+                </div>
+
+                <div id="headerRight">                   
+                    
+                    <div id="connectFb">
+                        <span id="connectTitle">Connect me with</span>
+                        <span id="fbWidget">
+                            <div id="twiter-follow">
+                                <a href="https://twitter.com/TubeMeLondon" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false" data-lang="en">Follow</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                            </div>
+                            <div class="fb-like" data-href="https://www.facebook.com/pages/Tubeme/531437306932418" data-width="80" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                        </span>
+                    </div>  
+                    
+                    <div id="connectSocial">					
+                        <a id="fbConnect" target="_blank" href="https://www.facebook.com/pages/Tubeme/531437306932418"></a>
+                        <a id="twitterConnect" target="_blank" href="https://twitter.com/TubeMeLondon"></a>					
+                    </div>
+
+                    <div id="mailingListForm">
+                        <h4>Join our Mailing List</h4>
+                        {exp:mailinglist:form list="visitors_mailing_list"}                            
+                            <input type="text" name="email" value="Your email" onblur="if (this.value == '') {this.value='Your email';}" onfocus="if (this.value == 'Your email') { this.value = ''; }" />
+                            <p><input type="submit" value="Sign Up"></p>
+                        {/exp:mailinglist:form}
+                    </div>
+
+                    {if logged_in}	
+                    <div id="membersArea">				
+                        <a href="{site_url}/member">Member area</a>	
+                    </div>		
+                    <div id="membersArea">				
+                        <a href="{path='logout'}">Sign out</a>	
+                    </div>	
+                    {/if}				
+
+                </div>
+
+            </div>

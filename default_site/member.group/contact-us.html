@@ -1,0 +1,63 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+{embed="tmpl/head"}				
+
+<div id="main" class="memberArea">	
+    
+    {if segment_3}
+    
+        <h1>Contact us - Thank you</h1>
+        <h3>Thank you for contacting us. We will be in touch with you very soon.</h3>
+        <h3>It may take up to 2 business days for us to process your enquiry.</h3>
+        
+    {if:else}
+
+        <h1>Contact us</h1>	
+
+        {if segment_3=="thank-you"}
+        <h2>Thank you</h2>
+        <h4>We will contact you as soon as possible</h4>
+        <h4>Please note it might take up to two working days for us to come to you.</h4>
+        <br /><br />
+        {/if}
+
+        <p>For help and support or general enquiries please fill out form and submit form.</p>
+        <br />
+        {exp:freeform:form form_name="member-contact" required="email|user_message|first_name" return="member/contact-us/thank-you"}
+
+        <div class="memberAreaFormLine">
+            <p>First name:</p>
+            {freeform:field:first_name}
+        </div>
+        <div class="memberAreaFormLine">
+            <p>Second name: <span class="normalFont">&#40;optional&#41;</span></p>
+            {freeform:field:last_name}
+        </div>
+        <div class="memberAreaFormLine">
+            <p>Your message:</p>
+            {freeform:field:user_message}
+        </div>
+        <div class="memberAreaFormLine">
+            <p>Email:</p>
+            {freeform:field:email}
+        </div>
+        <div class="memberAreaFormLine">
+            <p>Phone number: <span class="normalFont">&#40;optional&#41;</span></p>
+            {freeform:field:phone_number}
+        </div>			
+        <div class="memberAreaFormLine">
+            {freeform:captcha} 
+        </div>
+        <div class="memberAreaFormLine">
+            {freeform:submit} 
+        </div>
+
+    {/exp:freeform:form} 
+    
+    {/if}
+
+</div>
+
+{embed="tmpl/member-sub-menu"}
+
+{embed="tmpl/footer"}

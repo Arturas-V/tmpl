@@ -1,0 +1,46 @@
+{embed="mobile-embed/head"}	
+
+<section data-role="page" data-theme="a">
+
+    {embed="mobile-embed/locations-nav"}
+
+    {embed="mobile-embed/menu-wrapper"}
+
+    <header data-role="header" data-position="fixed">
+        <h1>Restaurants</h1>
+        <a href="#nav-panel" data-role="button" class="ui-button-left" data-icon="bars"></a>
+        <a href="#menu" data-role="button" class="ui-button-right menu-button" data-icon="grid"></a>
+    </header>
+
+    <div data-role="content">
+        <ul data-role="listview" class="ui-listview">
+            {exp:channel:entries 
+            channel="{segment_2}" 
+            status="open" 
+            limit="100" 
+            group_id="5|6|1" 
+            sort="desc" 
+            orderby="date"}
+            
+            {if no_results}<li><h4>No results found, updates coming soon!</h4></li>{/if}
+
+            <li data-icon="arrow-r" data-iconpos="right" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li-has-thumb block" >
+                <a href="{site_url}/mobile/page/{channel_short_name}/{url_title}" class="ui-link-inherit singleItemButton" data-transition="slide">
+                    <p class="ui-li-aside ui-li-desc"><strong>{entry_date format="%d, %M"}</strong></p>
+                    {if image}
+                    <img src="{image}" width="80" height="80" />
+                    {if:elseif !image}
+                    <img src="" alt="No images uploaded" width="80" height="80" />
+                    {/if}
+                    <h3 class="ui-li-heading">{title}</h3>
+                    <p class="ui-li-desc">{subtitle}</p>
+                </a>
+            </li>
+
+            {/exp:channel:entries}	
+        </ul>
+        <br />
+        <div class="fullSiteViewLink"><a href="{site_url}/restaurants" data-role="button" data-role="button" rel="external" data-transition="none">Desktop site</a></div>
+    </div>
+
+{embed="mobile-embed/footer"}

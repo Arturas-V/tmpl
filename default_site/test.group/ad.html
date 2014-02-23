@@ -1,0 +1,29 @@
+{embed="tmpl/head"}	
+
+<div class="adsItem">		
+    {if logged_out}{redirect="404"}{/if}
+    {exp:channel:entries 
+    author_id="CURRENT_USER" 
+    url_title="{segment_3}" 
+    status="open|closed"}
+    <h1>{title}</h1>					
+
+    <div class="adsItemRight">
+        <div class="ad-default-img">
+        {if image}                
+            <img src="{image}" width="180" height="130" />               
+        {/if}
+        </div>
+        <h4>{subtitle}</h4>
+        <div class="adsItemRightContent">
+            {description_of_your_place}
+        </div>
+    </div>
+
+    {/exp:channel:entries}
+
+</div>
+
+{embed="tmpl/sub-menu"}
+
+{embed="tmpl/footer"}

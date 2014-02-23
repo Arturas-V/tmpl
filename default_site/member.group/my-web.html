@@ -1,0 +1,78 @@
+{if logged_out}{redirect="member/login"}{/if}
+
+{embed="tmpl/head"}				
+
+<div id="main" class="memberMyWeb">		
+
+    <h1>My Page</h1>
+
+    {exp:channel:entries channel="premium_members_pages" author_id="CURRENT_USER" status="open"}	
+
+    <ul id="myWebMenu">
+
+        <li><span class="tabMemberWeb activeOne" data-tab="aboutUsMemberTab">About us</span></li>
+        <li><span class="tabMemberWeb" data-tab="whatsOnMemberTab">Whats on</span></li>
+        <li><span class="tabMemberWeb" data-tab="galleryMemberTab">Gallery</span></li>
+        <li><span class="tabMemberWeb" data-tab="promotionsMemberTab">Promotions</span></li>
+        <li><span class="tabMemberWeb" data-tab="findUsMemberTab">Find us</span></li>				
+
+    </ul>	
+
+    <div id="aboutUsMemberTab" class="memberMyTabContent">
+        <a href="" data-entry="{site_url}/member/ajax-my-web-edit-about-us/{channel_short_name}/{entry_id}" class="memberMyWebCall">edit about us</a>
+        <h1>About us</h1>
+        {about_us}
+    </div>
+
+    <div id="whatsOnMemberTab" class="memberMyTabContent noActiveMyWebtab">
+        <a href="" data-entry="{site_url}/member/ajax-my-web-edit-whats-on/{channel_short_name}/{entry_id}" class="memberMyWebCall">edit whats on</a>
+        <h1>Whats on</h1>
+        {whats_on}
+    </div>
+
+    <div id="galleryMemberTab" class="memberMyTabContent noActiveMyWebtab">
+        <a href="" data-entry="{site_url}/member/ajax-my-web-edit-gallery/{channel_short_name}/{entry_id}" class="memberMyWebCall">edit gallery</a>
+        <h1>Gallery</h1>       
+            
+        <div class="mygallery">
+            <ol>
+                {gallery}
+                <li>
+                    <a href="{image:url:large}">
+                        <img src="{image:url:large}">
+                    </a>
+                </li>
+                {/gallery}	
+            </ol>
+        </div>
+    </div>
+
+    <div id="promotionsMemberTab" class="memberMyTabContent noActiveMyWebtab">
+        <a href="" data-entry="{site_url}/member/ajax-my-web-edit-promotions/{channel_short_name}/{entry_id}" class="memberMyWebCall">edit promotions</a>
+        <h1>Promotions</h1>
+        {promotions}
+    </div>
+
+    <div id="findUsMemberTab" class="memberMyTabContent noActiveMyWebtab">
+        <a href="" data-entry="{site_url}/member/ajax-my-web-edit-find-us/{channel_short_name}/{entry_id}" class="memberMyWebCall">edit find us</a>
+        <h1>Find us</h1>
+        {find_us}
+        <div class="mapMyWeb">
+            {location_map}
+        </div>
+    </div>
+
+    {/exp:channel:entries}
+
+</div>
+
+<script type="text/template" id="editMemberWeb">
+    <div id="memberModal">		        
+        <div id="memberModalBody" class="memberWebModal">
+        </div>
+    </div>
+</script>
+
+{embed="tmpl/member-sub-menu"}
+
+{embed="tmpl/footer"}

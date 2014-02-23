@@ -1,0 +1,45 @@
+{embed="mobile-embed/head"}	
+
+<section data-role="page" data-theme="a" id="page">
+
+    {embed="mobile-embed/menu-wrapper"}
+
+    {exp:channel:entries channel="{segment_3}" url_title="{segment_4}" status="open"}
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>{title}</h1>	
+        <a href="{site_url}/mobile" class="backFromSingle" data-role="button" data-rel="back" data-icon="back" data-iconpos="left"></a>			
+        <a href="#menu" data-role="button" class="ui-button-right menu-button"  data-icon="grid"></a>		
+    </header>
+
+    <div data-role="content" class="memberPage memberPageTopMenu">
+        <div data-role="navbar" role="navigation">
+            <ul>
+                <li><a href="{get_location}" target="_blank" data-role="button" data-transition="none" data-iconpos="right">Map location</a></li>
+                {if group_id=="6" || group_id=="1"}
+                <li><a href="{site_url}/mobile/my-web/{exp:member:custom_profile_data member_id="{author_id}"}{web_app_url}{/exp:member:custom_profile_data}" data-transition="slide">My Page</a></li>
+                {/if}
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="content" class="memberPage">			
+        <h1>{title}</h1>
+        <h2>{subtitle}</h2>
+        {if image}
+        <img src="{image}" />
+        {/if}
+        {description_of_your_place}		
+        <br />        
+        <a id="makeFavoriteMobile" data-url="{channel_short_name}/{url_title}" data-title="{title}" data-date="{entry_date format='%d, %M'}" data-img="{image}" data-id="{entry_id}" data-role="button">Add to favorites</a>
+        {if group_id=="6" || group_id=="1"}        
+        <a href="{site_url}/mobile/my-web/{exp:member:custom_profile_data member_id="{author_id}"}{web_app_url}{/exp:member:custom_profile_data}" data-role="button" data-transition="slide" data-icon="arrow-r" data-iconpos="right">My Page</a>
+        {/if}        
+        <div>
+            {exp:hj_social_bookmarks entry_id="{entry_id}" sites="Facebook|Twitter|Google+|LinkedIn|Email" entry_id="{entry_id}"}
+        </div>
+        <br />
+        <div class="fullSiteViewLink"><a href="{site_url}/{segment_3}/{segment_4}" data-role="button" rel="external" data-ajax="false" data-transition="none">Full site</a></div>
+    </div>
+    {/exp:channel:entries}
+
+{embed="mobile-embed/footer"}
