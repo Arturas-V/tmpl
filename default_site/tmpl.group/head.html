@@ -1,17 +1,17 @@
 <?php 
 if (isset($_COOKIE['desktopSite'])){
-    //allow mobile user desktop version
-    $cookie = $_COOKIE['desktopSite'];
+//allow mobile user desktop version
+$cookie = $_COOKIE['desktopSite'];
 }
 else {
-    //if not cookie redirect user to mobile
-    require_once './php/mobile-detect.php';
-    $detect = new Mobile_Detect;
+//if not cookie redirect user to mobile
+require_once './php/mobile-detect.php';
+$detect = new Mobile_Detect;
 
-    if ( $detect->isMobile() || $detect->isTablet() ) {
-        header("Location: http://tubeme.co.uk/mobile");
-        exit;
-    }
+if ( $detect->isMobile() || $detect->isTablet() ) {
+header("Location: http://tubeme.co.uk/mobile");
+exit;
+}
 }
 ?>
 <!doctype html>
@@ -34,9 +34,10 @@ else {
         {exp:minimee:css minify="yes" combine="yes"}
         <link rel='stylesheet' type='text/css' href='{site_url}/style/main.css' media='screen' />
         <link rel='stylesheet' type='text/css' href='{site_url}/style/jquery-ui-1.10.3.custom.min.css' media='screen' />
+        <link rel='stylesheet' type='text/css' href='{site_url}/style/chosen.css' media='screen' />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
         {/exp:minimee:css}
-        
+
 
         <!-- libs  -->
         {exp:minimee:js combine="yes"}
@@ -64,17 +65,17 @@ else {
 
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-        fjs.parentNode.insertBefore(js, fjs);
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
 
         <div id="white"></div>       
 
         <div id="wrapper">
-            
+
             <div id="cookie">
                 <p>We use cookies to give you the best possible experience on our site. By continuing to use the site you agree to our use of cookies. <a href="{site_url}/tubeme/cookie-policy">Find out more</a> <span id="closeCookie">&times;</span></p>
             </div>
@@ -152,52 +153,232 @@ else {
                         <!-- standart ad banner image  -->
                         {exp:query sql="SELECT author_id FROM exp_channel_titles WHERE url_title = '{segment_2}'"}
                         {exp:channel:entries channel="members_banner_images" author_id="{author_id}" status="open" dynamic="off" limit="1"}                        
-                        
+
                         <img src="{banner_image}" width="730" height="250" />
-                        
+
                         {/exp:channel:entries}
                         {/exp:query}                        
-       
+
                         {/if}
 
                     </div>
 
                 </div>
 
-                <div id="headerRight">                   
-                    
-                    <div id="connectFb">
-                        <span id="connectTitle">Connect me with</span>
-                        <span id="fbWidget">
-                            <div id="twiter-follow">
-                                <a href="https://twitter.com/TubeMeLondon" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false" data-lang="en">Follow</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                            </div>
-                            <div class="fb-like" data-href="https://www.facebook.com/pages/Tubeme/531437306932418" data-width="80" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-                        </span>
-                    </div>  
-                    
-                    <div id="connectSocial">					
-                        <a id="fbConnect" target="_blank" href="https://www.facebook.com/pages/Tubeme/531437306932418"></a>
-                        <a id="twitterConnect" target="_blank" href="https://twitter.com/TubeMeLondon"></a>					
+                <div id="headerRight">  
+
+                    <div id="socialMedia">
+
+                        <div id="connectSocial">					
+                            <a id="fbConnect" target="_blank" href="https://www.facebook.com/pages/Tubeme/531437306932418"></a>
+                            <a id="twitterConnect" target="_blank" href="https://twitter.com/TubeMeLondon"></a>					
+                        </div>
+
+                        <div id="connectFb">
+                            <span id="connectTitle">Connect me with</span>
+                            <span id="fbWidget">
+                                <div id="twiter-follow">
+                                    <a href="https://twitter.com/TubeMeLondon" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false" data-lang="en">Follow</a>
+                                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                                </div>
+                                <div class="fb-like" data-href="https://www.facebook.com/pages/Tubeme/531437306932418" data-width="80" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                            </span>
+                        </div>                          
+
                     </div>
 
-                    <div id="mailingListForm">
+                    <div class="topRightWidgets">
+                        <h4>Plan Your Journey</h4>
+                        <form>
+                            <div class="optionDividerLeft jpDivider">
+                                <input type="text" id="travelFrom" name="" value="Travel from" onfocus="if (this.value == 'Travel from') { this.value = ''; }" onblur="if (this.value == '') {this.value='Travel from';}"/>
+                                <input class="noPadding" id="travelTo" type="text" name="" value="Travel to" onfocus="if (this.value == 'Travel to') { this.value = ''; }" onblur="if (this.value == '') {this.value='Travel to';}"/>
+                            </div>
+                            <div class="optionDividerRight jpDivider">
+                                <span data-journey-type="departure" class="journeyOptionBtn activeJourneyType">Leaving</span>
+                                <span data-journey-type="arrive" class="journeyOptionBtn">Arriving</span>
+                            </div>
+                            <div class="optionDividerRight jpDivider">
+                                <select name="journeyDate" id="journeyDate" style="width: 135px;">
+                                    <option value="20140301" selected="selected">Today
+                                    </option><option value="20140302">Tomorrow
+                                    </option><option value="20140303">Mon 03 Mar
+                                    </option><option value="20140304">Tue 04 Mar
+                                    </option><option value="20140305">Wed 05 Mar
+                                    </option><option value="20140306">Thu 06 Mar
+                                    </option><option value="20140307">Fri 07 Mar
+                                    </option><option value="20140308">Sat 08 Mar
+                                    </option><option value="20140309">Sun 09 Mar
+                                    </option><option value="20140310">Mon 10 Mar
+                                    </option><option value="20140311">Tue 11 Mar
+                                    </option><option value="20140312">Wed 12 Mar
+                                    </option><option value="20140313">Thu 13 Mar
+                                    </option><option value="20140314">Fri 14 Mar
+                                    </option><option value="20140315">Sat 15 Mar
+                                    </option><option value="20140316">Sun 16 Mar
+                                    </option><option value="20140317">Mon 17 Mar
+                                    </option><option value="20140318">Tue 18 Mar
+                                    </option><option value="20140319">Wed 19 Mar
+                                    </option><option value="20140320">Thu 20 Mar
+                                    </option><option value="20140321">Fri 21 Mar
+                                    </option><option value="20140322">Sat 22 Mar
+                                    </option><option value="20140323">Sun 23 Mar
+                                    </option><option value="20140324">Mon 24 Mar
+                                    </option><option value="20140325">Tue 25 Mar
+                                    </option><option value="20140326">Wed 26 Mar
+                                    </option><option value="20140327">Thu 27 Mar
+                                    </option><option value="20140328">Fri 28 Mar
+                                    </option><option value="20140329">Sat 29 Mar
+                                    </option><option value="20140330">Sun 30 Mar
+                                    </option>
+                                </select>
+                                <select name="journeyTime" id="journeyTime" style="width: 85px;">
+                                    <option value="0000">00:00
+                                    </option><option value="0015">00:15
+                                    </option><option value="0030">00:30
+                                    </option><option value="0045">00:45
+                                    </option><option value="0100">01:00
+                                    </option><option value="0115">01:15
+                                    </option><option value="0130">01:30
+                                    </option><option value="0145">01:45
+                                    </option><option value="0200">02:00
+                                    </option><option value="0215">02:15
+                                    </option><option value="0230">02:30
+                                    </option><option value="0245">02:45
+                                    </option><option value="0300">03:00
+                                    </option><option value="0315">03:15
+                                    </option><option value="0330">03:30
+                                    </option><option value="0345">03:45
+                                    </option><option value="0400">04:00
+                                    </option><option value="0415">04:15
+                                    </option><option value="0430">04:30
+                                    </option><option value="0445">04:45
+                                    </option><option value="0500">05:00
+                                    </option><option value="0515">05:15
+                                    </option><option value="0530">05:30
+                                    </option><option value="0545">05:45
+                                    </option><option value="0600">06:00
+                                    </option><option value="0615">06:15
+                                    </option><option value="0630">06:30
+                                    </option><option value="0645">06:45
+                                    </option><option value="0700">07:00
+                                    </option><option value="0715">07:15
+                                    </option><option value="0730">07:30
+                                    </option><option value="0745">07:45
+                                    </option><option value="0800">08:00
+                                    </option><option value="0815">08:15
+                                    </option><option value="0830">08:30
+                                    </option><option value="0845">08:45
+                                    </option><option value="0900">09:00
+                                    </option><option value="0915">09:15
+                                    </option><option value="0930">09:30
+                                    </option><option value="0945">09:45
+                                    </option><option value="1000">10:00
+                                    </option><option value="1015">10:15
+                                    </option><option value="1030">10:30
+                                    </option><option value="1045">10:45
+                                    </option><option value="1100">11:00
+                                    </option><option value="1115">11:15
+                                    </option><option value="1130">11:30
+                                    </option><option value="1145">11:45
+                                    </option><option value="1200">12:00
+                                    </option><option value="1215">12:15
+                                    </option><option value="1230">12:30
+                                    </option><option value="1245">12:45
+                                    </option><option value="1300">13:00
+                                    </option><option value="1315">13:15
+                                    </option><option value="1330">13:30
+                                    </option><option value="1345">13:45
+                                    </option><option value="1400">14:00
+                                    </option><option value="1415">14:15
+                                    </option><option value="1430">14:30
+                                    </option><option value="1445">14:45
+                                    </option><option value="1500">15:00
+                                    </option><option value="1515">15:15
+                                    </option><option value="1530">15:30
+                                    </option><option value="1545">15:45
+                                    </option><option value="1600">16:00
+                                    </option><option value="1615">16:15
+                                    </option><option value="1630">16:30
+                                    </option><option value="1645">16:45
+                                    </option><option value="1700">17:00
+                                    </option><option value="1715">17:15
+                                    </option><option value="1730">17:30
+                                    </option><option value="1745">17:45
+                                    </option><option value="1800">18:00
+                                    </option><option value="1815">18:15
+                                    </option><option value="1830">18:30
+                                    </option><option value="1845">18:45
+                                    </option><option value="1900">19:00
+                                    </option><option value="1915">19:15
+                                    </option><option value="1930">19:30
+                                    </option><option value="1945">19:45
+                                    </option><option value="2000">20:00
+                                    </option><option value="2015">20:15
+                                    </option><option value="2030">20:30
+                                    </option><option value="2045">20:45
+                                    </option><option value="2100">21:00
+                                    </option><option value="2115">21:15
+                                    </option><option value="2130">21:30
+                                    </option><option value="2145">21:45
+                                    </option><option value="2200">22:00
+                                    </option><option value="2215">22:15
+                                    </option><option value="2230">22:30
+                                    </option><option value="2245">22:45
+                                    </option><option value="2300">23:00
+                                    </option><option value="2315">23:15
+                                    </option><option value="2330">23:30
+                                    </option><option value="2345">23:45
+                                    </option>
+                                </select>
+                            </div>
+                            <div id="journeyMoreOptions" class="hiddenOptions">
+                                <h4>Travelling by</h4>
+                                <ul>
+                                    <li>
+                                        <span class="selectedMOT" data-mot-val="">Tube</span>
+                                    </li>
+                                    <li>
+                                        <span class="selectedMOT" data-mot-val="">DLR</span>
+                                    </li>
+                                    <li>
+                                        <span class="selectedMOT" data-mot-val="">Tram</span>
+                                    </li>
+                                    <li>
+                                        <span class="selectedMOT" data-mot-val="">London Overground</span>
+                                    </li>
+                                    <li>
+                                        <span class="selectedMOT" data-mot-val="">Coach</span>
+                                    </li>
+                                    <li>
+                                        <span class="selectedMOT" data-mot-val="">Bus</span>
+                                    </li>
+                                    <li>
+                                        <span class="selectedMOT" data-mot-val="">River Bus</span>
+                                    </li>
+                                    <li>
+                                        <span class="selectedMOT" data-mot-val="">Emirates Air Line </span>
+                                    </li>
+                                    <li>
+                                        <span class="selectedMOT" data-mot-val="">National Rail</span>
+                                    </li>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="optionDividerRight jpDivider">
+                                <a href="" id="travelMoreOptions">More travel options</a>
+                                <a href="" id="planJourneySubmit">Let's Go</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--div class="topRightWidgets">
                         <h4>Join our Mailing List</h4>
                         {exp:mailinglist:form list="visitors_mailing_list"}                            
                             <input type="text" name="email" value="Your email" onblur="if (this.value == '') {this.value='Your email';}" onfocus="if (this.value == 'Your email') { this.value = ''; }" />
                             <p><input type="submit" value="Sign Up"></p>
                         {/exp:mailinglist:form}
-                    </div>
-
-                    {if logged_in}	
-                    <div id="membersArea">				
-                        <a href="{site_url}/member">Member area</a>	
-                    </div>		
-                    <div id="membersArea">				
-                        <a href="{path='logout'}">Sign out</a>	
-                    </div>	
-                    {/if}				
+                    </div--> 
 
                 </div>
 

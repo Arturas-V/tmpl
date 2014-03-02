@@ -10,9 +10,7 @@
             <a href="{site_url}/tubeme/terms-of-use">Terms of use</a>
             &nbsp;&nbsp;<a href="{site_url}/tubeme/cookie-policy">Cookie policy</a>
             &nbsp;&nbsp;<a {if logged_in}href="{site_url}/member/contact-us"{if:else} href="" class="footerContactUs"{/if}>Contact us</a>
-            {if logged_out}
             &nbsp;&nbsp;<a href="{site_url}/member/home">Advertisers</a>
-            {/if}	
         </div>	
 
         <div id="footerContactUsForm">				
@@ -73,6 +71,9 @@
     <img src="{site_url}/images/style/275.gif" width="80" height="16" />
 </div>	
 
+<div id="overlayPlain">
+</div>
+
 {if segment_1=='member' || segment_1=='members'}
 {if:else}
 <div id="favoritesBlock">
@@ -85,7 +86,10 @@
 {/if}
 
 {exp:minimee:js minify="yes" combine="yes"}
-<script type="text/javascript" src="{site_url}/js/global.js"></script> 
+<script type="text/javascript" src="{site_url}/js/global.js"></script>
+<script type="text/javascript" src="{site_url}/js/modal.js"></script>
+<script type="text/javascript" src="{site_url}/js/destinations.js"></script>
+<script type="text/javascript" src="{site_url}/js/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="{site_url}/js/cookie.js"></script>
 <script type="text/javascript" src="{site_url}/js/jquery.tn3lite.min.js"></script>
 <script type="text/javascript" src="{site_url}/js/jquery.mCustomScrollbar.min.js"></script>
@@ -125,6 +129,16 @@
 
 <script type="text/template" id="mobileSite">
     <a href="{site_url}/mobile" id="goToMobile">Go to Mobile Site</a>	
+</script>
+
+<script type="text/template" id="modalPopup">
+    <div id="modalBody">
+        <div class="closeM">
+            <p class="closeModal button">close</p>
+        </div>
+        <div id="modalContentBody">
+        </div>
+    </div>
 </script>
 
 </body>
